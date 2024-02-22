@@ -2,7 +2,6 @@ from collections import deque
 from threading import local
 
 import pytest
-from pytest_bdd.reporting import after_step
 
 from src.main.pytest.ltm.TestManagerAPIClient import TestManagerAPIClient
 from src.main.pytest.ltm.models.runs.request.StepDTO import StepDTO
