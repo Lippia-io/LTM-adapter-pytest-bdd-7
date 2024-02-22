@@ -5,12 +5,12 @@ import ssl
 
 
 class TestManagerAPIClient:
-    TEST_MANAGER_USER_KEY = os.getenv("TEST_MANAGER_USERNAME")
-    TEST_MANAGER_PASS_KEY = os.getenv("TEST_MANAGER_PASSWORD")
-    TEST_MANAGER_API_HOST_KEY = os.getenv("TEST_MANAGER_API_HOST")
+    TEST_MANAGER_USER_KEY = "GenericUserLTM"
+    TEST_MANAGER_PASS_KEY = "GenericUserLTM"
+    TEST_MANAGER_API_HOST_KEY = "https://runs.crowdaracademy.lippia.io/runs"
     TEST_MANAGER_API_PORT_KEY = os.getenv("TEST_MANAGER_API_PORT")
-    TEST_MANAGER_RUN_NAME = os.getenv("TEST_MANAGER_RUN_NAME")
-    TEST_MANAGER_PROJECT_CODE = os.getenv("TEST_MANAGER_PROJECT_CODE")
+    TEST_MANAGER_RUN_NAME = "aut sample #12"
+    TEST_MANAGER_PROJECT_CODE = "PPC"
 
     apiUrl = None
     restTemplate = None
@@ -29,9 +29,9 @@ class TestManagerAPIClient:
 
     @staticmethod
     def get_rest_instance():
-        if not TestManagerAPIClient.rest_template:
+        if not TestManagerAPIClient.restTemplate:
             TestManagerAPIClient.initialize_rest_template()
-        return TestManagerAPIClient.rest_template
+        return TestManagerAPIClient.restTemplate
 
     @staticmethod
     def get_api_headers():

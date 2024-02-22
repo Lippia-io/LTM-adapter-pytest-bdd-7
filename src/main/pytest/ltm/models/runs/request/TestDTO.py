@@ -1,5 +1,8 @@
 from typing import List
-from StepDTO import StepDTO
+
+from src.main.pytest.ltm.models.runs.request.StepDTO import StepDTO
+
+
 class TestDTO:
     def __init__(
         self,

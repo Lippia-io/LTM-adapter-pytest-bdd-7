@@ -4,6 +4,7 @@ from configparser import ConfigParser
 from pathlib import Path
 from cryptography.fernet import Fernet
 
+
 class PropertyManager:
     """
     Clase para gestionar propiedades desde un archivo de configuración.
@@ -69,4 +70,3 @@ class PropertyManager:
     def set_fernet_key(cls, fernet_key):
         """Establece la clave de Fernet para la encriptación/desencriptación."""
         cls.fernet_key = fernet_key
-
