@@ -1,5 +1,5 @@
-from src.main.pytest.ltm.PropertyManager import PropertyManager
-from src.main.pytest.ltm.screenshots.Strategy import Strategy
+from adapterPytest.src.main.pytest.ltm.PropertyManager import PropertyManager
+from adapterPytest.src.main.pytest.ltm.screenshots.Strategy import Strategy
 
 
 class SSConfig:

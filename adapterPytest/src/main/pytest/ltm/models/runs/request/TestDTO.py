@@ -1,6 +1,6 @@
 from typing import List
 
-from src.main.pytest.ltm.models.runs.request.StepDTO import StepDTO
+from adapterPytest.src.main.pytest.ltm.models.runs.request.StepDTO import StepDTO
 
 
 class TestDTO:

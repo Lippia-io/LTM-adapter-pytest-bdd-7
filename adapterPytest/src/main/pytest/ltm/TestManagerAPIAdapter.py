@@ -3,11 +3,11 @@ from threading import local
 
 import pytest
 
-from src.main.pytest.ltm.TestManagerAPIClient import TestManagerAPIClient
-from src.main.pytest.ltm.models.runs.request.StepDTO import StepDTO
-from src.main.pytest.ltm.models.runs.request.TestDTO import TestDTO
-from src.main.pytest.ltm.screenshots.SSConfig import SSConfig
-from src.main.pytest.ltm.screenshots.Strategy import Strategy
+from adapterPytest.src.main.pytest.ltm.TestManagerAPIClient import TestManagerAPIClient
+from adapterPytest.src.main.pytest.ltm.models.runs.request.StepDTO import StepDTO
+from adapterPytest.src.main.pytest.ltm.models.runs.request.TestDTO import TestDTO
+from adapterPytest.src.main.pytest.ltm.screenshots.SSConfig import SSConfig
+from adapterPytest.src.main.pytest.ltm.screenshots.Strategy import Strategy
 
 
 class TestManagerAPIAdapter:
