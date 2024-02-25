@@ -69,7 +69,3 @@ class TestManagerAPIAdapter:
     @staticmethod
     def get_base64_image():
         pass
-
-
-if __name__ == "__main__":
-    pytest.main()
