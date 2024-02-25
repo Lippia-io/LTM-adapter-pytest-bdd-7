@@ -70,10 +70,7 @@ class TestManagerAPIClient:
         if not TestManagerAPIClient.TEST_MANAGER_PROJECT_CODE:
             raise ValueError("TEST_MANAGER_PROJECT_CODE cannot be null")
 
-        run = {
-            "name": TestManagerAPIClient.TEST_MANAGER_RUN_NAME,
-            "project_code": TestManagerAPIClient.TEST_MANAGER_PROJECT_CODE
-        }
+        run = RunDTO(TestManagerAPIClient.TEST_MANAGER_RUN_NAME, TestManagerAPIClient.TEST_MANAGER_PROJECT_CODE)
 
         url = TestManagerAPIClient.get_api_url() + "/runs"
         headers = TestManagerAPIClient.get_api_headers()
