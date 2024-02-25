@@ -70,11 +70,14 @@ class TestManagerAPIClient:
         if not TestManagerAPIClient.TEST_MANAGER_PROJECT_CODE:
             raise ValueError("TEST_MANAGER_PROJECT_CODE cannot be null")
 
-        run = RunDTO(TestManagerAPIClient.TEST_MANAGER_RUN_NAME, TestManagerAPIClient.TEST_MANAGER_PROJECT_CODE)
+        run = RunDTO()
+        run.set_run_name(TestManagerAPIClient.TEST_MANAGER_RUN_NAME)
+        run.set_project_code(TestManagerAPIClient.TEST_MANAGER_PROJECT_CODE)
 
         url = TestManagerAPIClient.get_api_url() + "/runs"
         headers = TestManagerAPIClient.get_api_headers()
-        response = TestManagerAPIClient.get_rest_instance().post(url, data=json.dumps(run), headers=headers)
+        run_dict = run.to_dict()  # Convertir a diccionario
+        response = TestManagerAPIClient.get_rest_instance().post(url, data=json.dumps(run_dict), headers=headers)
 
         run_response = RunDTO(response['name'], response['project_code'])
         return run_response
