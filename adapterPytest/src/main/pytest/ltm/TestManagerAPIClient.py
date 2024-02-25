@@ -3,7 +3,7 @@ import json
 import os
 import ssl
 
-from adapterPytest.src.main.pytest.ltm.models.runs.response.RunDTO import RunDTO
+from adapterPytest.src.main.pytest.ltm.models.runs.request.RunDTO import RunDTO
 
 
 class TestManagerAPIClient:
