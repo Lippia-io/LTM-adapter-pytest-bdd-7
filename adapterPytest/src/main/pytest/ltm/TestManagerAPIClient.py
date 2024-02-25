@@ -3,6 +3,8 @@ import json
 import os
 import ssl
 
+from adapterPytest.src.main.pytest.ltm.models.runs.response.RunDTO import RunDTO
+
 
 class TestManagerAPIClient:
     TEST_MANAGER_USER_KEY = "GenericUserLTM"
@@ -74,8 +76,11 @@ class TestManagerAPIClient:
         }
 
         url = TestManagerAPIClient.get_api_url() + "/runs"
-        response = TestManagerAPIClient.get_rest_instance().post(url, data=json.dumps(run), headers=TestManagerAPIClient.get_api_headers())
-        return response.json()
+        headers = TestManagerAPIClient.get_api_headers()
+        response = TestManagerAPIClient.get_rest_instance().post(url, data=json.dumps(run), headers=headers)
+
+        run_response = RunDTO(response['name'], response['project_code'])
+        return run_response
 
     @staticmethod
     def create_test(test):
