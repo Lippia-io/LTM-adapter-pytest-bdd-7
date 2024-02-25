@@ -14,3 +14,9 @@ class RunDTO:
 
     def get_project_code(self):
         return self.projectCode
+
+    def to_dict(self):
+        return {
+            "runName": self.runName,
+            "projectCode": self.projectCode
+        }
