@@ -80,7 +80,6 @@ class TestManagerAPIClient:
         response = TestManagerAPIClient.get_rest_instance().post(url, data=json.dumps(run_dict), headers=headers)
 
         response_data = response.json()
-        print(response_data)  # Obtener los datos de la respuesta como un diccionario
         run_response = ResponseRunDTO(response_data['id'])
         return run_response
 

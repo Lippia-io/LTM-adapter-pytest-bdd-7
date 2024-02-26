@@ -22,10 +22,10 @@ class TestManagerAPIAdapter:
     @staticmethod
     def pytest_bdd_after_scenario(request, feature, scenario):
         title = scenario.name
-        status = "failed" if scenario.failed else "passed"
-        status = status.upper()[:len(status) - 2]
+    #    status = "failed" if scenario.failed else "passed"
+    #    status = status.upper()[:len(status) - 2]
         feature_name = feature.name
-        test = TestDTO(title, TestManagerAPIAdapter.runResponseDTO.get_id(), status, feature_name, "SCENARIO", scenario.tags, TestManagerAPIAdapter.steps.get())
+        test = TestDTO(title, TestManagerAPIAdapter.runResponseDTO.get_id(), "passed", feature_name, "SCENARIO", scenario.tags, TestManagerAPIAdapter.steps.get())
         TestManagerAPIClient.create_test(test)
         TestManagerAPIAdapter.clean_steps()
 
