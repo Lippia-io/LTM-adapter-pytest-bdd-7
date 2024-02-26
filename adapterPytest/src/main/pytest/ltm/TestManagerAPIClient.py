@@ -4,7 +4,7 @@ import os
 import ssl
 
 from adapterPytest.src.main.pytest.ltm.models.runs.request.RunDTO import RunDTO
-
+from adapterPytest.src.main.pytest.ltm.models.runs.response.RunDTO import RunDTO as ResponseRunDTO
 
 class TestManagerAPIClient:
     TEST_MANAGER_USER_KEY = "GenericUserLTM"
@@ -79,7 +79,9 @@ class TestManagerAPIClient:
         run_dict = run.to_dict()  # Convertir a diccionario
         response = TestManagerAPIClient.get_rest_instance().post(url, data=json.dumps(run_dict), headers=headers)
 
-        run_response = RunDTO(response['name'], response['project_code'])
+        response_data = response.json()
+        print(response_data)  # Obtener los datos de la respuesta como un diccionario
+        run_response = ResponseRunDTO(response_data['id'])
         return run_response
 
     @staticmethod
