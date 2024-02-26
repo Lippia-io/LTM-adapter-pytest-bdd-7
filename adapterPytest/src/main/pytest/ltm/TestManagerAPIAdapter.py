@@ -1,5 +1,5 @@
 from collections import deque
-from threading import local
+import threading
 
 import pytest
 
@@ -12,20 +12,21 @@ from adapterPytest.src.main.pytest.ltm.screenshots.Strategy import Strategy
 
 class TestManagerAPIAdapter:
     runResponseDTO = None
-    steps = local()
+    steps = deque()
 
     def __init__(self):
         self.screenshotConfig = SSConfig.load()
-        self.runResponseDTO = TestManagerAPIClient.create_run()
-        self.steps = local()
+     #   self.runResponseDTO = TestManagerAPIClient.create_run()
 
     @staticmethod
     def pytest_bdd_after_scenario(request, feature, scenario):
+        if TestManagerAPIAdapter.runResponseDTO is None:
+            TestManagerAPIAdapter.runResponseDTO = TestManagerAPIClient.create_run()
         title = scenario.name
     #    status = "failed" if scenario.failed else "passed"
     #    status = status.upper()[:len(status) - 2]
         feature_name = feature.name
-        test = TestDTO(title, TestManagerAPIAdapter.runResponseDTO.get_id(), "passed", feature_name, "SCENARIO", scenario.tags, TestManagerAPIAdapter.steps.get())
+        test = TestDTO(title, TestManagerAPIAdapter.runResponseDTO.get_id(), "passed", feature_name, "SCENARIO", scenario.tags, scenario.steps)
         TestManagerAPIClient.create_test(test)
         TestManagerAPIAdapter.clean_steps()
 

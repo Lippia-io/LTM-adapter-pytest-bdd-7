@@ -24,7 +24,16 @@ class TestDTO:
 
     def set_title(self, title: str) -> None:
         self.title = title
-
+    def to_dict(self):
+        return {
+            "title": self.title,
+            "run_id": self.run_id,
+            "status": self.status,
+            "feature": self.feature,
+            "type": self.type,
+            "tags": self.tags,
+            "steps": [step.to_dict() for step in self.steps]
+        }
     def get_title(self) -> str:
         return self.title
 

@@ -80,10 +80,12 @@ class TestManagerAPIClient:
         response = TestManagerAPIClient.get_rest_instance().post(url, data=json.dumps(run_dict), headers=headers)
 
         response_data = response.json()
+        print(response_data)  # Obtener los datos de la respuesta como un diccionario
         run_response = ResponseRunDTO(response_data['id'])
         return run_response
 
     @staticmethod
     def create_test(test):
         url = TestManagerAPIClient.get_api_url() + "/tests"
-        TestManagerAPIClient.get_rest_instance().post(url, data=json.dumps(test), headers=TestManagerAPIClient.get_api_headers())
+      #  TestManagerAPIClient.get_rest_instance().post(url, data=json.dumps(test), headers=TestManagerAPIClient.get_api_headers())
+        TestManagerAPIClient.get_rest_instance().post(url, data=json.dumps(test.to_dict()),headers=TestManagerAPIClient.get_api_headers())

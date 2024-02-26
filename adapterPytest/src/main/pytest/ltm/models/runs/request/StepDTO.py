@@ -28,3 +28,11 @@ class StepDTO:
 
     def get_status(self):
         return self.status
+
+    def to_dict(self):
+        return {
+            "title": self.title,
+            "description": self.description,
+            "base64_image": self.base64_image,
+            "status": self.status
+        }
