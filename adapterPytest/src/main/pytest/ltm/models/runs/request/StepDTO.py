@@ -29,6 +29,7 @@ class StepDTO:
     def get_status(self):
         return self.status
 
+
     def to_dict(self):
         return {
             "title": self.title,
