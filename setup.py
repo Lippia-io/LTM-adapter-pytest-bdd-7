@@ -1,7 +1,7 @@
 import setuptools
 
 setuptools.setup(
-    name='adapterpytest',
+    name='adapterpytest2',
     version='1.0.3',
     description='Library for pytest-bdd',
     url='#',
