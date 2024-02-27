@@ -87,5 +87,4 @@ class TestManagerAPIClient:
     @staticmethod
     def create_test(test):
         url = TestManagerAPIClient.get_api_url() + "/tests"
-      #  TestManagerAPIClient.get_rest_instance().post(url, data=json.dumps(test), headers=TestManagerAPIClient.get_api_headers())
         TestManagerAPIClient.get_rest_instance().post(url, data=json.dumps(test.to_dict()),headers=TestManagerAPIClient.get_api_headers())

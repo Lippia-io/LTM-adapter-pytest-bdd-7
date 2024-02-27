@@ -23,10 +23,15 @@ class TestManagerAPIAdapter:
         if TestManagerAPIAdapter.runResponseDTO is None:
             TestManagerAPIAdapter.runResponseDTO = TestManagerAPIClient.create_run()
         title = scenario.name
-    #    status = "failed" if scenario.failed else "passed"
-    #    status = status.upper()[:len(status) - 2]
+        status = "passed"  # Por defecto, asumimos que el escenario ha pasado
+        for step in scenario.steps:
+            if step.failed:
+                status = "failed"
+                break
+        status = status.upper()[:len(status) - 2]
         feature_name = feature.name
-        test = TestDTO(title, TestManagerAPIAdapter.runResponseDTO.get_id(), "passed", feature_name, "SCENARIO", scenario.tags, scenario.steps)
+        steps = [StepDTO(title=step.name, description=step.full_name) for step in scenario.steps]
+        test = TestDTO(title, TestManagerAPIAdapter.runResponseDTO.get_id(), status, feature_name, "SCENARIO", scenario.tags,steps)
         TestManagerAPIClient.create_test(test)
         TestManagerAPIAdapter.clean_steps()
 
@@ -38,14 +43,17 @@ class TestManagerAPIAdapter:
         base64_image = None
         stack_trace = None
         if TestManagerAPIAdapter.steps.get() is None:
-            TestManagerAPIAdapter.steps.set(deque())
+            TestManagerAPIAdapter.steps = deque()
+
         screenshot_config = SSConfig.load()
         if screenshot_config.contains(Strategy.ON_EACH_STEP):
             TestManagerAPIAdapter.get_base64_image()
         elif screenshot_config.contains(Strategy.ON_FAILURE) and status == "FAILED":
             TestManagerAPIAdapter.get_base64_image()
             stack_trace = TestManagerAPIAdapter.truncate(step_func_args.result.error.message, 5)
-        TestManagerAPIAdapter.steps.get().append(StepDTO(step_text, stack_trace, base64_image, status))
+
+        step_info = StepDTO(step_text, stack_trace, base64_image, status)
+        TestManagerAPIAdapter.steps.append(step_info)
 
     @staticmethod
     def get_step_text(step):
@@ -58,8 +66,8 @@ class TestManagerAPIAdapter:
 
     @staticmethod
     def clean_steps():
-        if TestManagerAPIAdapter.steps.get() is not None:
-            TestManagerAPIAdapter.steps.remove()
+        if TestManagerAPIAdapter.steps:
+            TestManagerAPIAdapter.steps.popleft()
 
     @staticmethod
     def truncate(string, length):
