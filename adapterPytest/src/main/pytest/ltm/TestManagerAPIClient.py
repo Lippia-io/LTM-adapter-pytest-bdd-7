@@ -6,11 +6,12 @@ import ssl
 from adapterPytest.src.main.pytest.ltm.models.runs.request.RunDTO import RunDTO
 from adapterPytest.src.main.pytest.ltm.models.runs.response.RunDTO import RunDTO as ResponseRunDTO
 
+
 class TestManagerAPIClient:
     TEST_MANAGER_USER_KEY = os.getenv('USER_KEY')
-    TEST_MANAGER_PASS_KEY = None
-    TEST_MANAGER_API_HOST_KEY = None
-    TEST_MANAGER_API_PORT_KEY = None
+    TEST_MANAGER_PASS_KEY = os.getenv('PASS_KEY')
+    TEST_MANAGER_API_HOST_KEY = os.getenv('HOST_KEY')
+    TEST_MANAGER_API_PORT_KEY = os.getenv('PORT_KEY')
     TEST_MANAGER_RUN_NAME = None
     TEST_MANAGER_PROJECT_CODE = None
 
@@ -18,14 +19,10 @@ class TestManagerAPIClient:
     restTemplate = None
 
     @staticmethod
-    def initialize_rest_template(PASS_KEY, HOST_KEY, PORT_KEY, RUN_NAME, PROJECT_CODE):
+    def initialize_rest_template(RUN_NAME, PROJECT_CODE):
 
-        TestManagerAPIClient.TEST_MANAGER_PASS_KEY = PASS_KEY
-        TestManagerAPIClient.TEST_MANAGER_API_HOST_KEY = HOST_KEY
-        TestManagerAPIClient.TEST_MANAGER_API_PORT_KEY = os.getenv(PORT_KEY)
         TestManagerAPIClient.TEST_MANAGER_RUN_NAME = RUN_NAME
         TestManagerAPIClient.TEST_MANAGER_PROJECT_CODE = PROJECT_CODE
-
         TestManagerAPIClient.apiUrl = TestManagerAPIClient.get_api_url()
 
         if TestManagerAPIClient.apiUrl.startswith("https://"):

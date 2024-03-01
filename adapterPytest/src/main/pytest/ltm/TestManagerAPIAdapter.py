@@ -12,32 +12,33 @@ from adapterPytest.src.main.pytest.ltm.screenshots.Strategy import Strategy
 
 class TestManagerAPIAdapter:
     runResponseDTO = None
-    steps = deque()
+    steps = []
 
     def __init__(self):
         self.screenshotConfig = SSConfig.load()
-     #   self.runResponseDTO = TestManagerAPIClient.create_run()
+        self.steps = []
 
     @staticmethod
     def pytest_bdd_after_scenario(feature, scenario):
         if TestManagerAPIAdapter.runResponseDTO is None:
             TestManagerAPIAdapter.runResponseDTO = TestManagerAPIClient.create_run()
         title = scenario.name
-        status = "passed"
+        status = "passed"  # Por defecto, asumimos que el escenario ha pasado
         for step in TestManagerAPIAdapter.steps:
             if step.status == "FAIL":
                 status = "failed"
                 break
         status = status.upper()[:len(status) - 2]
         feature_name = feature.name
-        test = TestDTO(title, TestManagerAPIAdapter.runResponseDTO.get_id(), status, feature_name, "SCENARIO", scenario.tags,TestManagerAPIAdapter.steps)
+        test = TestDTO(title, TestManagerAPIAdapter.runResponseDTO.get_id(), status, feature_name, "SCENARIO",
+                       scenario.tags, TestManagerAPIAdapter.steps)
         TestManagerAPIClient.create_test(test)
         TestManagerAPIAdapter.clean_steps()
 
     @staticmethod
-    def pytest_bdd_after_step(step,step_func_args):
+    def pytest_bdd_after_step(step, step_func_args):
         step_text = TestManagerAPIAdapter.get_step_text(step)
-        status= "failed" if step.failed else "passed"
+        status = "failed" if step.failed else "passed"
         status = status.upper()[:len(status) - 2]
         base64_image = None
         stack_trace = None
@@ -52,7 +53,6 @@ class TestManagerAPIAdapter:
 
         step_info = StepDTO(step_text, stack_trace, base64_image, status)
         TestManagerAPIAdapter.steps.append(step_info)
-
 
     @staticmethod
     def pytest_bdd_step_error(step, exception):
@@ -72,7 +72,6 @@ class TestManagerAPIAdapter:
         step_info = StepDTO(step_text, stack_trace, base64_image, status)
         TestManagerAPIAdapter.steps.append(step_info)
 
-
     @staticmethod
     def get_step_text(step):
         step_text_builder = step.keyword + " " + step.name
@@ -81,7 +80,7 @@ class TestManagerAPIAdapter:
     @staticmethod
     def clean_steps():
         if TestManagerAPIAdapter.steps:
-            TestManagerAPIAdapter.steps.popleft()
+            TestManagerAPIAdapter.steps.clear()
 
     @staticmethod
     def truncate(string, length):
