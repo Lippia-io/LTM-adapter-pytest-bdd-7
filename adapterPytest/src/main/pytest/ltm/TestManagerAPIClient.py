@@ -11,7 +11,7 @@ class TestManagerAPIClient:
     TEST_MANAGER_USER_KEY = os.getenv('USER_KEY')
     TEST_MANAGER_PASS_KEY = os.getenv('PASS_KEY')
     TEST_MANAGER_API_HOST_KEY = os.getenv('HOST_KEY')
-    TEST_MANAGER_API_PORT_KEY = os.getenv('PORT_KEY')
+    TEST_MANAGER_API_PORT_KEY = os.getenv("TEST_MANAGER_API_PORT")
     TEST_MANAGER_RUN_NAME = None
     TEST_MANAGER_PROJECT_CODE = None
 
