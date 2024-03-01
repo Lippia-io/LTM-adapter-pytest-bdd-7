@@ -7,18 +7,25 @@ from adapterPytest.src.main.pytest.ltm.models.runs.request.RunDTO import RunDTO
 from adapterPytest.src.main.pytest.ltm.models.runs.response.RunDTO import RunDTO as ResponseRunDTO
 
 class TestManagerAPIClient:
-    TEST_MANAGER_USER_KEY = "GenericUserLTM"
-    TEST_MANAGER_PASS_KEY = "GenericUserLTM"
-    TEST_MANAGER_API_HOST_KEY = "https://runs.crowdaracademy.lippia.io/runs"
-    TEST_MANAGER_API_PORT_KEY = os.getenv("TEST_MANAGER_API_PORT")
-    TEST_MANAGER_RUN_NAME = "aut sample #12"
-    TEST_MANAGER_PROJECT_CODE = "PPC"
+    TEST_MANAGER_USER_KEY = os.getenv('USER_KEY')
+    TEST_MANAGER_PASS_KEY = None
+    TEST_MANAGER_API_HOST_KEY = None
+    TEST_MANAGER_API_PORT_KEY = None
+    TEST_MANAGER_RUN_NAME = None
+    TEST_MANAGER_PROJECT_CODE = None
 
     apiUrl = None
     restTemplate = None
 
     @staticmethod
-    def initialize_rest_template():
+    def initialize_rest_template(PASS_KEY, HOST_KEY, PORT_KEY, RUN_NAME, PROJECT_CODE):
+
+        TestManagerAPIClient.TEST_MANAGER_PASS_KEY = PASS_KEY
+        TestManagerAPIClient.TEST_MANAGER_API_HOST_KEY = HOST_KEY
+        TestManagerAPIClient.TEST_MANAGER_API_PORT_KEY = os.getenv(PORT_KEY)
+        TestManagerAPIClient.TEST_MANAGER_RUN_NAME = RUN_NAME
+        TestManagerAPIClient.TEST_MANAGER_PROJECT_CODE = PROJECT_CODE
+
         TestManagerAPIClient.apiUrl = TestManagerAPIClient.get_api_url()
 
         if TestManagerAPIClient.apiUrl.startswith("https://"):
