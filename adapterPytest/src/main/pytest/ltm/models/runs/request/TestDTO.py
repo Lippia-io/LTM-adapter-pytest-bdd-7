@@ -7,7 +7,7 @@ class TestDTO:
     def __init__(
         self,
         title: str = None,
-        run_id: str = None,
+        runId: str = None,
         status: str = None,
         feature: str = None,
         type: str = None,
@@ -15,7 +15,7 @@ class TestDTO:
         steps: List[StepDTO] = None,
     ):
         self.title = title
-        self.run_id = run_id
+        self.runId = runId
         self.status = status
         self.feature = feature
         self.type = type
@@ -28,7 +28,7 @@ class TestDTO:
     def to_dict(self):
         return {
             "title": self.title,
-            "run_id": self.run_id,
+            "runId": self.runId,
             "status": self.status,
             "feature": self.feature,
             "type": self.type,
@@ -40,11 +40,11 @@ class TestDTO:
     def get_title(self) -> str:
         return self.title
 
-    def set_run_id(self, run_id: str) -> None:
-        self.run_id = run_id
+    def set_run_id(self, runId: str) -> None:
+        self.runId = runId
 
     def get_run_id(self) -> str:
-        return self.run_id
+        return self.runId
 
     def set_status(self, status: str) -> None:
         self.status = status
