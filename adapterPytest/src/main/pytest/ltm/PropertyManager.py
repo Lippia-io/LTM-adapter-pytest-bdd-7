@@ -68,5 +68,4 @@ class PropertyManager:
 
     @classmethod
     def set_fernet_key(cls, fernet_key):
-        """Establece la clave de Fernet para la encriptación/desencriptación."""
         cls.fernet_key = fernet_key
