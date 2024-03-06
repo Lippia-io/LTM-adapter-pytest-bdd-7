@@ -8,10 +8,12 @@ from adapterPytest.src.main.pytest.ltm.models.runs.response.RunDTO import RunDTO
 
 
 class TestManagerAPIClient:
-    TEST_MANAGER_USER_KEY = os.getenv('USER_KEY')
-    TEST_MANAGER_PASS_KEY = os.getenv('PASS_KEY')
-    TEST_MANAGER_API_HOST_KEY = os.getenv('HOST_KEY')
+    TEST_MANAGER_USER_KEY = os.getenv('TEST_MANAGER_USER_KEY')
+    TEST_MANAGER_PASS_KEY = os.getenv('TEST_MANAGER_PASS_KEY')
+    TEST_MANAGER_API_HOST_KEY = os.getenv('TEST_MANAGER_API_HOST_KEY')
     TEST_MANAGER_API_PORT_KEY = os.getenv("TEST_MANAGER_API_PORT")
+    TEST_MANAGER_REPOSITORY_URL = os.getenv("TEST_MANAGER_REPOSITORY_URL")
+    TEST_MANAGER_REPOSITORY_BRANCH = os.getenv("TEST_MANAGER_REPOSITORY_BRANCH")
     TEST_MANAGER_RUN_NAME = None
     TEST_MANAGER_PROJECT_CODE = None
 
@@ -68,15 +70,25 @@ class TestManagerAPIClient:
 
     @staticmethod
     def create_run():
-        if not TestManagerAPIClient.TEST_MANAGER_RUN_NAME:
-            raise ValueError("TEST_MANAGER_RUN_NAME cannot be null")
+        if TestManagerAPIClient.TEST_MANAGER_RUN_NAME is None or not TestManagerAPIClient.TEST_MANAGER_RUN_NAME:
+            raise ValueError("TEST_MANAGER_RUN_NAME cannot be null or empty")
 
-        if not TestManagerAPIClient.TEST_MANAGER_PROJECT_CODE:
-            raise ValueError("TEST_MANAGER_PROJECT_CODE cannot be null")
+        if TestManagerAPIClient.TEST_MANAGER_PROJECT_CODE is None or not TestManagerAPIClient.TEST_MANAGER_PROJECT_CODE:
+            raise ValueError("TEST_MANAGER_PROJECT_CODE cannot be null or empty")
+
+        if TestManagerAPIClient.TEST_MANAGER_REPOSITORY_URL is None or not TestManagerAPIClient.TEST_MANAGER_REPOSITORY_URL:
+            raise ValueError("TEST_MANAGER_REPOSITORY_URL cannot be null or empty")
+
+        if TestManagerAPIClient.TEST_MANAGER_REPOSITORY_BRANCH is None or not TestManagerAPIClient.TEST_MANAGER_REPOSITORY_BRANCH:
+            raise ValueError("TEST_MANAGER_REPOSITORY_BRANCH cannot be null or empty")
+
+
 
         run = RunDTO()
         run.set_run_name(TestManagerAPIClient.TEST_MANAGER_RUN_NAME)
         run.set_project_code(TestManagerAPIClient.TEST_MANAGER_PROJECT_CODE)
+        run.set_repository_url(TestManagerAPIClient.TEST_MANAGER_REPOSITORY_URL)
+        run.set_repository_branch(TestManagerAPIClient.TEST_MANAGER_REPOSITORY_BRANCH)
 
         url = TestManagerAPIClient.get_api_url() + "/runs"
         headers = TestManagerAPIClient.get_api_headers()
