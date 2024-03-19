@@ -3,7 +3,7 @@ class RunDTO:
         self.runName = runName
         self.projectCode = projectCode
         self.repositoryUrl = repositoryUrl
-        self.repositoryBranch = repositoryBranch
+        self.branchName = repositoryBranch
 
     def set_run_name(self, runName):
         self.runName = runName
@@ -34,5 +34,5 @@ class RunDTO:
             "runName": self.runName,
             "projectCode": self.projectCode,
             "repositoryUrl": self.repositoryUrl,
-            "repositoryBranch": self.repositoryBranch
+            "branchName": self.repositoryBranch
         }
