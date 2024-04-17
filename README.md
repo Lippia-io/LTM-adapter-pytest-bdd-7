@@ -24,24 +24,46 @@ git+ssh://git@ssh....../pytest-bdd-7-adapter.git
 ### Report Class
 
 The TestManagerAPIAdapter class defines a set of methods to interact with the Lippia Test Manager API and record information about Pytest BDD scenarios and steps.
-To use the adapter, it is necessary to instantiate the class that implements the TestManagerAPIAdapter interface. This class is responsible for handling Pytest BDD hooks, which are special functions that are executed at different points during scenario execution. Hooks must be independent functions defined at the module level to be accessible from anywhere.
-In this way, the TestManagerAPIAdapter adapter allows for the recording of information about Pytest BDD scenarios and steps in Lippia Test Manager, facilitating the tracking and management of tests.
+
+To implement the adapter, it is necessary to create the conftest.py file; import and initialize the **TestManagerAPIAdapter** and **TestManagerAPIClient** classes, followed by the invocation of the hooks belonging to pytest-bdd
+
+ **Initialize the TestManagerAPIClient**
+```
+TestManagerAPIClient.initialize_rest_template(RUN_NAME=config.RUN_NAME, PROJECT_CODE=config.PROJECT_CODE)
+```
+**Instantiate the TestManagerAPIAdapter**
+```
+adapter_instance = TestManagerAPIAdapter()
+```
+**Define your Pytest BDD hooks to use the adapter**
+```
+def pytest_bdd_after_scenario(feature, scenario):
+adapter_instance.pytest_bdd_after_scenario(feature, scenario)
+
+def pytest_bdd_after_step(step, step_func_args):
+adapter_instance.pytest_bdd_after_step(step, step_func_args)
+
+def pytest_bdd_step_error(step, exception):
+adapter_instance.pytest_bdd_step_error(step, exception)
+```
+
 
 When running the tests, the hooks in the conftest file will automatically execute, injecting the generated report into LTM. 
 
+ 
   ![runs-ltm](adapterPytest/src/main/pytest/docs/img/runs-ltm.png)
   ![run-ltm](adapterPytest/src/main/pytest/docs/img/run-ltm.png)
 
 ### Configure the env variables
 
 | Key                        | Concept                                                                 | Is         |  
-|----------------------------|-------------------------------------------------------------------------|------------|  
-| TEST_MANAGER_USER_KEY      | User with which the Test Manager instance will be authenticated         | Mandatory  |  
-| TEST_MANAGER_PASS_KEY      | Password with which the Test Manager instance will be authenticated     | Mandatory  |  
-| TEST_MANAGER_API_HOST_KEY      | Host to which the adapter will attempt to authenticate                  | Mandatory  |  
-| TEST_MANAGER_API_PORT_KEY      | Port on which the Test Manager instance will be listening               | Optional   |  
-| TEST_MANAGER_REPOSITORY_URL      | URL of the repository linked to the project                | Mandatory   |  
-| TEST_MANAGER_REPOSITORY_BRANCH      | Branch from where the automated tests are being injected                 | Mandatory   |  
+|----------------------------|-------------------------------------------------------------------------|------------|
+| TEST_MANAGER_USER_KEY         | User with which the Test Manager instance will be authenticated         | Mandatory  |  
+| TEST_MANAGER_PASS_KEY         | Password with which the Test Manager instance will be authenticated     | Mandatory  |  
+| TEST_MANAGER_API_HOST_KEY     | Host to which the adapter will attempt to authenticate                  | Mandatory  |  
+| TEST_MANAGER_API_PORT_KEY     | Port on which the Test Manager instance will be listening                | Optional   |  
+| TEST_MANAGER_REPOSITORY_URL   | URL of the repository linked to the project                             | Mandatory  |  
+| TEST_MANAGER_REPOSITORY_BRANCH| Branch from where the automated tests are being injected                 | Mandatory  |  
 
 **Local variables in the config file**
 
