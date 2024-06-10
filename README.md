@@ -71,3 +71,5 @@ When running the tests, the hooks in the conftest file will automatically execut
 |----------------------------|-------------------------------------------------------------------------|------------|
 | RUN_NAME      | Run name, serves as identifier of the suite execution                   | Mandatory  |  
 | PROJECT_CODE  | Project Code into which the adapter will attempt to inject test results | Mandatory  |
+
+![GraphicAdapter](adapterPytest/src/main/pytest/docs/img/GraphicAdapter.png)
